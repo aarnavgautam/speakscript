@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speakscript Web App</title>
+</head>
+<body>
+    <h1>Speakscript Web App</h1>
+    <form action="/process" method="post">
+        <label for="filepath">Enter the path to your WAV file:</label>
+        <input type="text" id="filepath" name="filepath" required><br><br>
+        <label for="speakers">Enter the number of speakers: </label>
+        <input type="number" id="speakers" name="speakers" required><br><br>
+        <input type="submit" value="Transcribe">
+    </form>
+
+    {% if transcription %}
+    <h2>Transcription:</h2>
+    <pre>{{ transcription }}</pre>
+    {% endif %}
+</body>
+</html>

@@ -17,9 +17,10 @@ def suppress_stdout():
 
 
 def diarize(filepath, speakers):
+    api_key = os.getenv("API_KEY")
     pipeline = Pipeline.from_pretrained(
         'pyannote/speaker-diarization-3.0',
-        use_auth_token='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'
+        use_auth_token=api_key
     )
     with suppress_stdout():
         diarization = pipeline(filepath, num_speakers=speakers)
