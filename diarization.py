@@ -58,8 +58,3 @@ def complicated_diarize(filepath, speakers):
     return timestamps
 
 
-'''
-file = '/Users/aarnavgautam/Downloads/plans.wav'
-speaker = 2
-diarize(file, speaker)
-'''
