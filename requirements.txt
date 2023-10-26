@@ -26,6 +26,7 @@ flatbuffers==23.5.26
 fonttools==4.43.1
 frozenlist==1.4.0
 fsspec==2023.9.2
+gunicorn==20.0.4
 huggingface-hub==0.18.0
 humanfriendly==10.0
 HyperPyYAML==1.2.2
