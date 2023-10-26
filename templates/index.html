@@ -4,20 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speakscript Web App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Speakscript Web App</h1>
-    <form action="/process" method="post">
-        <label for="filepath">Enter the path to your WAV file:</label>
-        <input type="text" id="filepath" name="filepath" required><br><br>
-        <label for="speakers">Enter the number of speakers: </label>
-        <input type="number" id="speakers" name="speakers" required><br><br>
-        <input type="submit" value="Transcribe">
-    </form>
+    <div class="container">
+        <h1>Speakscript Web App</h1>
 
-    {% if transcription %}
-    <h2>Transcription:</h2>
-    <pre>{{ transcription }}</pre>
-    {% endif %}
+        <form action="/process" method="post" enctype="multipart/form-data">
+            <div id="sections">
+                <div id="uploadSection" class="left-section">
+                    <label for="audio_file">Upload Your WAV File:</label>
+                    <input type="file" id="audio_file" name="audio_file" accept=".wav">
+                </div>
+
+                <div id="recordSection" class="right-section">
+                    <header>Record Audio</header>
+                    <button id="startRecording">Record</button>
+                    <button id="stopRecording" disabled>Stop</button>
+                    <audio id="audioPlayer" controls></audio>
+                    <text id="recordText">Please note that this feature requires Chrome to download
+                        the audio.
+                        Once downloaded, it can be uploaded to be diarized and transcribed.</text>
+                </div>
+
+                <div class="element-with-border"></div>
+
+            </div>
+
+            <div id="speakerSection">
+                <label for="speakers">Enter the Number of Speakers:</label>
+                <input type="number" id="speakers" name="speakers" required><br>
+                <input type="hidden" id="audioData" name="audioData">
+                <input type="submit" id="submitButton" value="Submit">
+            </div>
+        </form>
+
+        <h2>Transcription:</h2>
+        <pre id="transcriptionResult">{{ transcriptionResult }}</pre>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>

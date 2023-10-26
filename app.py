@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
 from diarization import diarize
 from transcription import easy_transcribe
-
 import os
 
 app = Flask(__name__)
@@ -17,14 +16,17 @@ def index():
 # route for processing date
 @app.route('/process', methods=['POST'])
 def process():
-
-    path = request.form['filepath']
+    global path, diary
+    uploaded_file = request.files['audio_file']
+    if uploaded_file.filename != '':
+        path = "temp.wav"
+        uploaded_file.save(path)
     speakers = int(request.form['speakers'])
-
-    diary = diarize(path, speakers)
+    if request.method == 'POST':
+        diary = diarize(path, speakers)
     transcription = easy_transcribe(path, diary)
-
-    return render_template('index.html', transcription=transcription)
+    os.remove(path)
+    return render_template('index.html', transcriptionResult=transcription)
 
 
 if __name__ == '__main__':
