@@ -6,14 +6,11 @@ import os
 app = Flask(__name__)
 
 
-# route for home page
 @app.route('/')
 def index():
-    # renders template for home page
     return render_template('index.html')
 
 
-# route for processing date
 @app.route('/process', methods=['POST'])
 def process():
     global path, diary
