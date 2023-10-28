@@ -14,8 +14,9 @@
         <form action="/process" method="post" enctype="multipart/form-data">
             <div id="sections">
                 <div id="uploadSection" class="left-section">
-                    <label for="audio_file">Upload Your WAV File:</label>
-                    <input type="file" id="audio_file" name="audio_file" accept=".wav">
+                    <label for="uploadedAudioFile">Upload Your WAV File:</label>
+                    <input type="file" id="uploadedAudioFile" name="uploadedAudioFile" accept=".wav">
+                    <audio id="uploadedAudio" controls style="display: none;"></audio>
                 </div>
 
                 <div id="recordSection" class="right-section">
@@ -24,9 +25,7 @@
                     <button id="stopRecording">Stop Recording</button>
                     <audio id="audioPlayer" controls></audio>
                     <a id="downloadLink" style="display: none;">Download Audio</a>
-                    <text id="recordText">Please note that this feature requires Chrome to download
-                        the audio.
-                        Once downloaded, it can be uploaded to be diarized and transcribed.</text>
+                    <div id="stopwatch">00:00</div>
                 </div>
 
                 <div class="element-with-border"></div>

@@ -17,7 +17,7 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     global path, diary
-    uploaded_file = request.files['audio_file']
+    uploaded_file = request.files['uploadedAudioFile']
     if uploaded_file.filename != '':
         path = "temp.wav"
         uploaded_file.save(path)
