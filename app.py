@@ -6,15 +6,18 @@ import os
 app = Flask(__name__)
 
 
+# route for home page
 @app.route('/')
 def index():
+    # renders template for home page
     return render_template('index.html')
 
 
+# route for processing date
 @app.route('/process', methods=['POST'])
 def process():
     global path, diary
-    uploaded_file = request.files['uploadedAudioFile']
+    uploaded_file = request.files['audio_file']
     if uploaded_file.filename != '':
         path = "temp.wav"
         uploaded_file.save(path)
