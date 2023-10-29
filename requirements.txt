@@ -1,0 +1,8 @@
+Flask==3.0.0
+openai_whisper==20230918
+pyannote.audio==3.0.0
+pyannote.core==5.0.0
+pyannote.database==5.0.1
+pyannote.metrics==3.2.1
+pyannote.pipeline==3.0.1
+PyAudio==0.2.13
