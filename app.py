@@ -2,8 +2,13 @@ from flask import Flask, render_template, request
 from diarization import diarize
 from transcription import easy_transcribe
 import os
+# from record import AudioRecorder
 
 app = Flask(__name__)
+
+
+# initialize the mic stuff
+# audio_recorder = AudioRecorder()
 
 
 # route for home page

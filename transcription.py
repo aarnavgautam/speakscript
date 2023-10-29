@@ -1,5 +1,11 @@
 import whisper
-from diarization import diarize
+from datetime import timedelta
+
+
+def format_time(seconds):
+    delta = timedelta(seconds=seconds)
+    formatted_time = str(delta).split(".")[0]
+    return formatted_time
 
 
 def easy_transcribe(file, diary):
@@ -8,8 +14,8 @@ def easy_transcribe(file, diary):
     segments = result['segments']
     text = []
     for index, segment in enumerate(segments):
-        start = segment['start']
-        end = segment['end']
+        start = format_time(segment['start'])
+        end = format_time(segment['end'])
         transcription = segment['text']
 
         # slight bug here - sometimes, if the speaker pauses for too long,

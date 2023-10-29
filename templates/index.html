@@ -13,30 +13,25 @@
 
         <form action="/process" method="post" enctype="multipart/form-data">
             <div id="sections">
-                <div id="uploadSection" class="left-section">
-                    <label for="audio_file">Upload Your WAV File:</label>
-                    <input type="file" id="audio_file" name="audio_file" accept=".wav">
-                </div>
-
-                <div id="recordSection" class="right-section">
-                    <header>Record Audio</header>
-                    <button id="startRecording">Record</button>
-                    <button id="stopRecording" disabled>Stop</button>
-                    <audio id="audioPlayer" controls></audio>
-                    <text id="recordText">Please note that this feature requires Chrome to download
-                        the audio.
-                        Once downloaded, it can be uploaded to be diarized and transcribed.</text>
-                </div>
-
+                <label for="audio_file">Upload your WAV file:</label>
+                <div id="instructions">If you don't have anything to upload, use the
+                record section to record your own audio, then download it with the provided link,
+                and upload it in this section! Note that recording software may require usage of Google Chrome.</div>
+                <input type="file" id="audio_file" name="audio_file" accept=".wav">
+                <header>Record Audio</header>
+                <button id="startRecording">Record</button>
+                <div id="timer">00:00</div>
+                <audio id="audioPlayer" controls></audio>
+                <a id="downloadLink" style="display: none;">Download Recorded Audio</a>
                 <div class="element-with-border"></div>
-
             </div>
 
             <div id="speakerSection">
-                <label for="speakers">Enter the Number of Speakers:</label>
+                <label for="speakers">Enter the number of speakers:</label>
                 <input type="number" id="speakers" name="speakers" required><br>
                 <input type="hidden" id="audioData" name="audioData">
                 <input type="submit" id="submitButton" value="Submit">
+                <div id="note">Please note that processing may take a few minutes depending on the length of your audio.</div>
             </div>
         </form>
 

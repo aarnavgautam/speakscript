@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/final_note_taker.iml" filepath="$PROJECT_DIR$/.idea/final_note_taker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/speakscript.iml" filepath="$PROJECT_DIR$/.idea/speakscript.iml" />
     </modules>
   </component>
 </project>
