@@ -1,5 +1,17 @@
 let mediaRecorder;
 let audioChunks = [];
+let startTime;
+let timerInterval;
+
+
+function updateTimer() {
+    const currentTime = new Date().getTime();
+    const elapsedTime = new Date(currentTime - startTime);
+    const minutes = elapsedTime.getMinutes().toString().padStart(2, '0');
+    const seconds = elapsedTime.getSeconds().toString().padStart(2, '0');
+    document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+}
+
 
 navigator.mediaDevices.getUserMedia({ audio: true })
     .then(function (stream) {
@@ -9,7 +21,12 @@ navigator.mediaDevices.getUserMedia({ audio: true })
             audioChunks.push(event.data);
         };
 
+        mediaRecorder.onstart = function () {
+            startTime = new Date().getTime();
+            timerInterval = setInterval(updateTimer, 1000);
+        };
         mediaRecorder.onstop = function () {
+            clearInterval(timerInterval);
             let audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
             let audioUrl = URL.createObjectURL(audioBlob);
             document.getElementById('audioPlayer').src = audioUrl;
@@ -26,34 +43,18 @@ document.getElementById('startRecording').addEventListener('click', function (ev
     if (mediaRecorder.state === 'inactive') {
         audioChunks = [];
         mediaRecorder.start();
-        document.getElementById('recordButton').textContent = 'Stop Recording';
+        document.getElementById('startRecording').textContent = 'Stop Recording';
     } else {
         mediaRecorder.stop();
-        document.getElementById('recordButton').textContent = 'Record';
-    }
-});
-
-document.getElementById('stopRecording').addEventListener('click', function (event) {
-    event.preventDefault(); // Prevents form submission
-
-    if (mediaRecorder.state === 'recording') {
-        mediaRecorder.stop();
-        document.getElementById('startRecording').textContent = 'Record';
+        document.getElementById('startRecording').textContent = 'Start Recording';
     }
 });
 
 document.getElementById('uploadedAudioFile').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const recordedAudioUrl = URL.createObjectURL(file);
+    document.getElementById('newAudioPlayer').src = recordedAudioUrl;
     document.getElementById('uploadedAudio').src = recordedAudioUrl;
     document.getElementById('uploadedAudio').style.display = 'block';
     document.getElementById('audioData').value = recordedAudioUrl; // Set audio data to a hidden input for form submission
 });
-
-mediaRecorder.onstop = function() {
-    let audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-    recordedAudioUrl = URL.createObjectURL(audioBlob);
-    document.getElementById('audioPlayer').src = recordedAudioUrl;
-    document.getElementById('audioPlayer').style.display = 'block';
-    document.getElementById('audioData').value = recordedAudioUrl; // Set audio data to a hidden input for form submission
-};
