@@ -20,5 +20,6 @@ phases:
 artifacts:
   files:
     - '**/*'
+    - 'templates/index.html'
   discard-paths: yes
   base-directory: ./
