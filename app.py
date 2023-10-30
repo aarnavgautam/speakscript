@@ -4,7 +4,7 @@ from transcription import easy_transcribe
 import os
 # from record import AudioRecorder
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 
 # initialize the mic stuff
