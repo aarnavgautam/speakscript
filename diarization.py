@@ -1,9 +1,8 @@
+import os
 from pyannote.audio import Pipeline
 import datetime
 from contextlib import contextmanager
-import os
 import sys
-
 
 @contextmanager
 def suppress_stdout():
@@ -15,9 +14,15 @@ def suppress_stdout():
         finally:
             sys.stdout = old_stdout
 
+def get_api_key():
+    api_key = os.getenv('API_KEY')
+    if api_key is None:
+        print("API_KEY environment variable is not set.")
+        sys.exit(1)
+    return api_key
 
 def diarize(filepath, speakers):
-    api_key = 'YOUR_API_KEY'
+    api_key = get_api_key()
     pipeline = Pipeline.from_pretrained(
         'pyannote/speaker-diarization-3.0',
         use_auth_token=api_key
@@ -33,11 +38,11 @@ def diarize(filepath, speakers):
         timestamps.append(speaker_num)
     return timestamps
 
-
 def complicated_diarize(filepath, speakers):
+    api_key = get_api_key()
     pipeline = Pipeline.from_pretrained(
         'pyannote/speaker-diarization-3.0',
-        use_auth_token='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'
+        use_auth_token=api_key
     )
     diarization = pipeline(filepath, num_speakers=speakers)
     temp = str(diarization).split('\n')
@@ -56,5 +61,3 @@ def complicated_diarize(filepath, speakers):
                             end.hour * 60 * 60 * 1000)
         timestamps.append((start_milliseconds, end_milliseconds, speaker_num))
     return timestamps
-
-
