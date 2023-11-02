@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  build:
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt
+      - echo "Running tests..."
+      # Add commands to run tests if you have any
+      - echo "Building Flask application..."
+      # Assuming your Flask app entry point is 'app.py'
+      - python app.py
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+
+artifacts:
+  files:
+    - '**/*'
+    - 'templates/index.html'
+  discard-paths: yes
+  base-directory: ./
